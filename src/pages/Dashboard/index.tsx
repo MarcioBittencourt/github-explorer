@@ -8,6 +8,7 @@ import { Link, Outlet } from "react-router-dom";
 
 interface Repository {
   full_name: string,
+  name: string,
   description: string,
   owner: {
     login: string,
@@ -49,7 +50,7 @@ const Dashboard: React.FC = () => {
       setRepositories([...repositories, repository]);
       setNewRepo('');
       setInputError('');
-      console.log(response.data)
+      console.log("api", response.data);
     } catch (err) {
       setInputError('Erro na busca por esse repositôrio');
     }
@@ -71,8 +72,8 @@ const Dashboard: React.FC = () => {
       <Repositories>
         {repositories.map(repository => (
           <Link 
-            key={repository.full_name}
-            to={`/repositories/${repository.full_name}`}
+            key={repository.name}
+            to={`repositories/${repository.name}/${repository.owner.login}`}
           >
             <img 
               src={repository.owner.avatar_url}
